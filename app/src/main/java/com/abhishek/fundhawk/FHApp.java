@@ -2,6 +2,7 @@ package com.abhishek.fundhawk;
 
 import android.content.Context;
 
+import com.abhishek.fundhawk.di.DaggerAppComponent;
 import com.abhishek.fundhawk.di.DatabaseModule;
 import com.abhishek.fundhawk.di.NetworkModule;
 

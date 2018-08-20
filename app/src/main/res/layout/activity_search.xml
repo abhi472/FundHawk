@@ -81,6 +81,4 @@
         tools:text="List Empty! \nStart comparing by entering your search query"
         />
 
-
-
 </android.support.constraint.ConstraintLayout>
