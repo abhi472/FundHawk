@@ -1,7 +1,7 @@
 package com.abhishek.fundhawk.di;
 
 
-import com.abhishek.fundhawk.MainActivity;
+import com.abhishek.fundhawk.ui.SearchActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -10,7 +10,7 @@ import dagger.android.ContributesAndroidInjector;
 abstract class ActivityBuilder {
 
     @ContributesAndroidInjector()
-    abstract MainActivity contributeMainInjector();
+    abstract SearchActivity contributeMainInjector();
 
 
 
