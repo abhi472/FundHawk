@@ -1,5 +1,9 @@
 package com.abhishek.fundhawk.remote;
 
+import com.abhishek.fundhawk.model.MutualFundResult.MutualFundResultBody;
+import com.abhishek.fundhawk.model.SearchPostBody;
+import com.abhishek.fundhawk.model.SearchResult.SearchResultBody;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -16,12 +20,12 @@ public class ApiServiceHelper implements ApiService {
     }
 
     @Override
-    public Single<Object> getMutualFunds(String authKey, String key) {
+    public Single<MutualFundResultBody> getMutualFunds(String authKey, String key) {
         return service.getMutualFunds(authKey, key);
     }
 
     @Override
-    public Single<Object> searchFunds(String authKey, Object searchBody) {
+    public Single<SearchResultBody> searchFunds(String authKey, SearchPostBody searchBody) {
         return service.searchFunds(authKey, searchBody);
     }
 }

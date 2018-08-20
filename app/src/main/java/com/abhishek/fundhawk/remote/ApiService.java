@@ -1,5 +1,9 @@
 package com.abhishek.fundhawk.remote;
 
+import com.abhishek.fundhawk.model.MutualFundResult.MutualFundResultBody;
+import com.abhishek.fundhawk.model.SearchPostBody;
+import com.abhishek.fundhawk.model.SearchResult.SearchResultBody;
+
 import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -10,10 +14,10 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     @GET("v1/mf")
-    Single<Object> getMutualFunds(@Header("Authorization") String authKey,
-                                  @Query("key") String key);
+    Single<MutualFundResultBody> getMutualFunds(@Header("Authorization") String authKey,
+                                                @Query("key") String key);
 
     @POST
-    Single<Object> searchFunds(@Header("Authorization") String authKey,
-                               @Body Object searchBody);
+    Single<SearchResultBody> searchFunds(@Header("Authorization") String authKey,
+                                         @Body SearchPostBody searchBody);
 }
