@@ -2,11 +2,14 @@ package com.abhishek.fundhawk.ui;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
+import android.util.Log;
+import android.util.Pair;
 
 import com.abhishek.fundhawk.model.SearchPostBody;
 import com.abhishek.fundhawk.model.SearchResult.SearchResult;
 import com.abhishek.fundhawk.repository.ApiRepository;
 import com.abhishek.fundhawk.repository.ApiRepositoryHelper;
+import com.abhishek.fundhawk.utils.SingleLiveEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +21,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
-import retrofit2.HttpException;
 
 public class SearchActivityViewModel extends ViewModel {
 
     private ApiRepository repository;
-    public ObservableField<String> infoText = new ObservableField<>("");
+    public ObservableField<String> infoText = new ObservableField<>();
     public ObservableField<Boolean> isTyped = new ObservableField<>(false);
     public ObservableField<Boolean> isTyping = new ObservableField<>(false);
     public ObservableField<Boolean> listVisibility = new ObservableField<>(false);
@@ -31,6 +33,10 @@ public class SearchActivityViewModel extends ViewModel {
     private CompositeDisposable disposable;
     private PublishSubject<String> subject;
     private List<SearchResult> searchResultList;
+    SingleLiveEvent<List<String>> successCommand = new SingleLiveEvent<>();
+    SingleLiveEvent<ArrayList<SearchResult>> updateAdapter = new SingleLiveEvent<>();
+
+    private ArrayList<SearchResult> selectedResults = new ArrayList<>();
 
 
     @Inject
@@ -62,6 +68,8 @@ public class SearchActivityViewModel extends ViewModel {
                         if (searchResultList != null)
                             searchResultList.clear();
                         searchResultList = searchResultBody.getData().getSearchResults();
+                        listVisibility.set(true);
+                        successCommand.setValue(getNames(searchResultList));
                     }
 
                 }, throwable -> {
@@ -72,7 +80,7 @@ public class SearchActivityViewModel extends ViewModel {
 
     }
 
-    private ArrayList<String> getHosts(List<SearchResult> searchResults) {
+    private ArrayList<String> getNames(List<SearchResult> searchResults) {
 
         ArrayList<String> searchResult = new ArrayList<>();
 
@@ -86,7 +94,7 @@ public class SearchActivityViewModel extends ViewModel {
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
         isTyping.set(true);
-        if(!s.toString().equalsIgnoreCase("")) {
+        if (!s.toString().equalsIgnoreCase("")) {
             isTyped.set(true);
         } else {
             isTyped.set(false);
@@ -100,5 +108,11 @@ public class SearchActivityViewModel extends ViewModel {
     protected void onCleared() {
         disposable.dispose();
         super.onCleared();
+    }
+
+    public void onItemSelected(int k) {
+        selectedResults.add(searchResultList.get(k));
+        updateAdapter.setValue(selectedResults);
+
     }
 }

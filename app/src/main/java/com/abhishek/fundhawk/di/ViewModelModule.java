@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.abhishek.fundhawk.ui.SearchActivityViewModel;
+import com.abhishek.fundhawk.ui.SelectedListAdapterViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -19,6 +20,11 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(SearchActivityViewModel.class)
     ViewModel bindSearchViewModel(SearchActivityViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SelectedListAdapterViewModel.class)
+    ViewModel bindSelectedListAdapterViewModel(SelectedListAdapterViewModel viewModel);
 
 
 }

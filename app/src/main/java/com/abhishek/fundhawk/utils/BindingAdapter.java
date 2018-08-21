@@ -1,4 +1,4 @@
-package com.abhishek.fundhawk;
+package com.abhishek.fundhawk.utils;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
