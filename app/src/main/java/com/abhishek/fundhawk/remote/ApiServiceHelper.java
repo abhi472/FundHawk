@@ -7,6 +7,7 @@ import com.abhishek.fundhawk.model.SearchResult.SearchResultBody;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 @Singleton
@@ -25,7 +26,7 @@ public class ApiServiceHelper implements ApiService {
     }
 
     @Override
-    public Single<SearchResultBody> searchFunds(String authKey, SearchPostBody searchBody) {
+    public Observable<SearchResultBody> searchFunds(String authKey, SearchPostBody searchBody) {
         return service.searchFunds(authKey, searchBody);
     }
 }

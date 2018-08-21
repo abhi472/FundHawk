@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.abhishek.fundhawk.R;
 import com.abhishek.fundhawk.databinding.ActivitySearchBinding;
+import com.abhishek.fundhawk.di.ViewModelFactory;
 
 import javax.inject.Inject;
 
@@ -18,7 +19,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class SearchActivity extends DaggerAppCompatActivity {
 
     @Inject
-    ViewModelProvider.Factory factory;
+    ViewModelFactory factory;
 
     private SearchActivityViewModel viewModel;
 
@@ -29,7 +30,7 @@ public class SearchActivity extends DaggerAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         AndroidInjection.inject(this);
-        viewModel = ViewModelProviders.of(this).get(SearchActivityViewModel.class);
+        viewModel = ViewModelProviders.of(this, factory).get(SearchActivityViewModel.class);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         binding.setViewModel(viewModel);
 

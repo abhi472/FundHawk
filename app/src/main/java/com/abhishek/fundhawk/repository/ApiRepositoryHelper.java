@@ -7,6 +7,7 @@ import com.abhishek.fundhawk.remote.ApiServiceHelper;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public class ApiRepositoryHelper implements ApiRepository {
@@ -24,7 +25,7 @@ public class ApiRepositoryHelper implements ApiRepository {
     }
 
     @Override
-    public Single<SearchResultBody> searchFunds(String authKey, SearchPostBody searchBody) {
+    public Observable<SearchResultBody> searchFunds(String authKey, SearchPostBody searchBody) {
         return apiServiceHelper.searchFunds(authKey, searchBody);
     }
 }

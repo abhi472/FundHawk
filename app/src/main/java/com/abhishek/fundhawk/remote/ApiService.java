@@ -4,6 +4,7 @@ import com.abhishek.fundhawk.model.MutualFundResult.MutualFundResultBody;
 import com.abhishek.fundhawk.model.SearchPostBody;
 import com.abhishek.fundhawk.model.SearchResult.SearchResultBody;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -17,7 +18,7 @@ public interface ApiService {
     Single<MutualFundResultBody> getMutualFunds(@Header("Authorization") String authKey,
                                                 @Query("key") String key);
 
-    @POST
-    Single<SearchResultBody> searchFunds(@Header("Authorization") String authKey,
-                                         @Body SearchPostBody searchBody);
+    @POST("v2/mf/search/")
+    Observable<SearchResultBody> searchFunds(@Header("Authorization") String authKey,
+                                             @Body SearchPostBody searchBody);
 }
