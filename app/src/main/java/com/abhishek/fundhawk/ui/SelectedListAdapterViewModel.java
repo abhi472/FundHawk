@@ -18,4 +18,5 @@ public class SelectedListAdapterViewModel extends ViewModel {
     public void setFields(SearchResult result) {
 name.set(result.getName());
     }
+
 }

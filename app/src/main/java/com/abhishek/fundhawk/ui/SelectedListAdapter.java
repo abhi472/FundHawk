@@ -53,6 +53,10 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
         SelectedListAdapterViewModel viewModel = new SelectedListAdapterViewModel();
         viewModel.setFields(searchResultList.get(holder.getAdapterPosition()));
         holder.setViewModel(viewModel);
+        holder.binding.clear.setOnClickListener(view -> {
+            searchResultList.remove(holder.getAdapterPosition());
+            notifyDataSetChanged();
+        });
 
     }
 

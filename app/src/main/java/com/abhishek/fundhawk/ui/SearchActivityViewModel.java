@@ -35,6 +35,11 @@ public class SearchActivityViewModel extends ViewModel {
     private List<SearchResult> searchResultList;
     SingleLiveEvent<List<String>> successCommand = new SingleLiveEvent<>();
     SingleLiveEvent<ArrayList<SearchResult>> updateAdapter = new SingleLiveEvent<>();
+    SingleLiveEvent<String> clearText = new SingleLiveEvent<>();
+    SingleLiveEvent<String> errorToast = new SingleLiveEvent<>();
+
+
+
 
     private ArrayList<SearchResult> selectedResults = new ArrayList<>();
 
@@ -51,6 +56,7 @@ public class SearchActivityViewModel extends ViewModel {
                 .doOnEach(stringNotification -> {
                     if (stringNotification.getValue().length() < 3) {
                         isTyping.set(false);
+                        isTyped.set(true);
                     }
                 })
                 .debounce(300,
@@ -64,6 +70,7 @@ public class SearchActivityViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(searchResultBody -> {
                     isTyping.set(false);
+                    isTyped.set(true);
                     if (searchResultBody.getData().getSearchResults().size() != 0) {
                         if (searchResultList != null)
                             searchResultList.clear();
@@ -74,6 +81,7 @@ public class SearchActivityViewModel extends ViewModel {
 
                 }, throwable -> {
                     isTyping.set(false);
+                    isTyped.set(true);
 
                 })
         );
@@ -94,11 +102,8 @@ public class SearchActivityViewModel extends ViewModel {
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
         isTyping.set(true);
-        if (!s.toString().equalsIgnoreCase("")) {
-            isTyped.set(true);
-        } else {
-            isTyped.set(false);
-        }
+        isTyped.set(false);
+
 
         subject.onNext(s.toString());
 
@@ -115,4 +120,19 @@ public class SearchActivityViewModel extends ViewModel {
         updateAdapter.setValue(selectedResults);
 
     }
+
+    public void onClearClick() {
+        clearText.setValue("");
+    }
+
+    public void onCompareClick() {
+        if(selectedResults.size() <= 1) {
+            errorToast.setValue("Select atlease two funds to compare");
+        } else if(selectedResults.size() >= 4) {
+            errorToast.setValue("You can compare maximum of three funds at a time");
+
+        }
+
+    }
+
 }

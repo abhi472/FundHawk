@@ -40,6 +40,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             isVisible="@{viewModel.isTyped}"
+            android:onClick="@{() -> viewModel.onClearClick()}"
             android:background="@drawable/ic_clear"
             android:contentDescription="@string/place_autocomplete_clear_button"
             app:layout_constraintBottom_toBottomOf="@+id/search_bar"
@@ -94,6 +95,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_bar"
             tools:text="List Empty! \nStart comparing by entering your search query" />
+
+        <TextView
+            android:id="@+id/compare"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:text="@string/start_comparison"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_bar"
+            app:layout_constraintVertical_bias="1.0"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
+            android:onClick="@{() -> viewModel.onCompareClick()}"
+            />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

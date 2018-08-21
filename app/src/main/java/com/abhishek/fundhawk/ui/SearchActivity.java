@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
 import com.abhishek.fundhawk.R;
 import com.abhishek.fundhawk.databinding.ActivitySearchBinding;
 import com.abhishek.fundhawk.di.ViewModelFactory;
@@ -52,6 +54,13 @@ public class SearchActivity extends DaggerAppCompatActivity {
             binding.searchList.setAdapter(adapter);
         });
 
+        viewModel.clearText.observe(this, s -> {
+            binding.searchBar.setText("");
+        });
+
+        viewModel.errorToast.observe(this, errorText -> {
+            Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+        });
 
 
     }
