@@ -28,11 +28,11 @@ public class CompareFundViewModel extends ViewModel {
 
     private ApiRepository repository;
 
-    public ObservableField<Boolean> listVisibility = new ObservableField<>(true);
+    public ObservableField<Boolean> listVisibility = new ObservableField<>(false);
 
     public ObservableField<Boolean> progressVisibility = new ObservableField<>(true);
 
-    public ObservableField<Boolean> errorVisibility = new ObservableField<>(true);
+    public ObservableField<Boolean> errorVisibility = new ObservableField<>(false);
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -95,19 +95,19 @@ public class CompareFundViewModel extends ViewModel {
     private void getComparableObjects() {
 
         for (MutualFund fund : mutualFunds) {
-            comparisonBodies.get(0).getValues().add(String.valueOf(fund.getNav()));
+            comparisonBodies.get(0).getValues().add("₹"+String.valueOf(fund.getNav()));
             comparisonBodies.get(1).getValues().add(String.valueOf(fund.
                     getDetails()
                     .getRiskometer()));
             comparisonBodies.get(2).getValues().add(String.valueOf(fund
                     .getDetails()
-                    .getYoyReturn()));
+                    .getYoyReturn())+"%");
             comparisonBodies.get(3).getValues().add(String.valueOf(fund
                     .getDetails()
-                    .getReturn3yr()));
+                    .getReturn3yr())+"%");
             comparisonBodies.get(4).getValues().add(String.valueOf(fund
                     .getDetails()
-                    .getReturn5yr()));
+                    .getReturn5yr())+"%");
             comparisonBodies.get(5).getValues().add(String.valueOf(fund
                     .getDetails()
                     .getSchemeType()));
@@ -118,8 +118,9 @@ public class CompareFundViewModel extends ViewModel {
                     .getDetails()
                     .getBenchmarkText()));
             comparisonBodies.get(8).getValues().add(String.format(Locale.getDefault(),
-                    "%.2f\n%s - %s",
+                    "%.2f%s\n%s - %s",
                     fund.getBestReturn().getPercentChange(),
+                    "%",
                     fund.getBestReturn().getFromdate(),
                     fund.getBestReturn().getTodate()));
             comparisonBodies.get(9).getValues().add(String.valueOf(fund

@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.abhishek.fundhawk.ui.compare.CompareFundViewModel;
+import com.abhishek.fundhawk.ui.compare.CompareListAdapterViewModel;
 import com.abhishek.fundhawk.ui.search.SearchActivityViewModel;
 import com.abhishek.fundhawk.ui.search.SelectedListAdapterViewModel;
 
@@ -31,6 +32,11 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(CompareFundViewModel.class)
     ViewModel bindCompareFundViewModel(CompareFundViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CompareListAdapterViewModel.class)
+    ViewModel bindCompareListAdapterViewModel(CompareListAdapterViewModel viewModel);
 
 
 }

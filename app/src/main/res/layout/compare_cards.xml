@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.abhishek.fundhawk.ui.compare.CompareListAdapterViewModel" />
+    </data>
+<LinearLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="ALLOCATIONS"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:paddingStart="16dp"
+        android:text="@{viewModel.title}"
+        android:paddingEnd="16dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/first"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="2234"
+            android:text="@{viewModel.first}"
+            android:textColor="@android:color/black"
+            />
+        <TextView
+            android:id="@+id/second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="2234"
+            android:text="@{viewModel.second}"
+            android:textColor="@android:color/black"
+            />
+        <TextView
+            android:id="@+id/third"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="2234"
+            android:text="@{viewModel.third}"
+            isVisible="@{viewModel.thirdVisibility}"
+            android:textColor="@android:color/black"
+            />
+    </LinearLayout>
+
+</LinearLayout>
+</layout>

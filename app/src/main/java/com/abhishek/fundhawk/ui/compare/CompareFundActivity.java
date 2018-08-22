@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
 import com.abhishek.fundhawk.R;
@@ -26,6 +27,9 @@ public class CompareFundActivity extends DaggerAppCompatActivity {
     @Inject
     ViewModelFactory factory;
 
+    @Inject
+    CompareListAdapter adapter;
+
     private CompareFundViewModel viewModel;
 
     private ActivityCompareFundBinding binding;
@@ -44,7 +48,9 @@ public class CompareFundActivity extends DaggerAppCompatActivity {
         viewModel.init(keys);
 
         viewModel.updateAdapter.observe(this, comparisonBodies -> {
-            Log.d("check", "onCreate: "+comparisonBodies);
+            adapter.setItems(comparisonBodies);
+            binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            binding.recyclerView.setAdapter(adapter);
         });
     }
 }
