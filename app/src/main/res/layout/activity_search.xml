@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.SearchActivity">
+    tools:context=".ui.search.SearchActivity">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.abhishek.fundhawk.ui.SearchActivityViewModel" />
+            type="com.abhishek.fundhawk.ui.search.SearchActivityViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

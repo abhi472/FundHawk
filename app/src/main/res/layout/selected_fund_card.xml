@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.abhishek.fundhawk.ui.SelectedListAdapterViewModel" />
+            type="com.abhishek.fundhawk.ui.search.SelectedListAdapterViewModel" />
     </data>
     <LinearLayout
         android:id="@+id/root"

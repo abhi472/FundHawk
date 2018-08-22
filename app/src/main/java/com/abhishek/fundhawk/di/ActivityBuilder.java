@@ -1,8 +1,8 @@
 package com.abhishek.fundhawk.di;
 
 
-import com.abhishek.fundhawk.ui.SearchActivity;
-import com.abhishek.fundhawk.ui.SearchActivityModule;
+import com.abhishek.fundhawk.ui.search.SearchActivity;
+import com.abhishek.fundhawk.ui.search.SearchActivityModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

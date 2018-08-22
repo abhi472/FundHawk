@@ -3,8 +3,9 @@ package com.abhishek.fundhawk.di;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import com.abhishek.fundhawk.ui.SearchActivityViewModel;
-import com.abhishek.fundhawk.ui.SelectedListAdapterViewModel;
+import com.abhishek.fundhawk.ui.compare.CompareFundViewModel;
+import com.abhishek.fundhawk.ui.search.SearchActivityViewModel;
+import com.abhishek.fundhawk.ui.search.SelectedListAdapterViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -25,6 +26,11 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(SelectedListAdapterViewModel.class)
     ViewModel bindSelectedListAdapterViewModel(SelectedListAdapterViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CompareFundViewModel.class)
+    ViewModel bindCompareFundViewModel(CompareFundViewModel viewModel);
 
 
 }

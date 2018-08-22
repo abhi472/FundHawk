@@ -1,4 +1,4 @@
-package com.abhishek.fundhawk.ui;
+package com.abhishek.fundhawk.ui.search;
 
 import dagger.Module;
 import dagger.Provides;

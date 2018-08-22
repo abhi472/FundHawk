@@ -1,20 +1,17 @@
-package com.abhishek.fundhawk.ui;
+package com.abhishek.fundhawk.ui.search;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import com.abhishek.fundhawk.R;
 import com.abhishek.fundhawk.databinding.SelectedFundCardBinding;
 import com.abhishek.fundhawk.model.SearchResult.SearchResult;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 

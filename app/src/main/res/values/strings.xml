@@ -2,4 +2,5 @@
     <string name="app_name">FundHawk</string>
     <string name="search">Search</string>
     <string name="start_comparison">Start Comparison</string>
+    <string name="error">You\'re not connected to the internet</string>
 </resources>

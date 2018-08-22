@@ -1,4 +1,4 @@
-package com.abhishek.fundhawk.ui;
+package com.abhishek.fundhawk.ui.search;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
