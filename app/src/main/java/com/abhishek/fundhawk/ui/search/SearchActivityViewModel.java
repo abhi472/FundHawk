@@ -84,6 +84,8 @@ public class SearchActivityViewModel extends ViewModel {
                 }, throwable -> {
                     isTyping.set(false);
                     isTyped.set(true);
+                    infoText.set(throwable.getLocalizedMessage());
+                    contentVisibility.set(true);
 
                 })
         );

@@ -33,6 +33,7 @@ public class CompareFundViewModel extends ViewModel {
     public ObservableField<Boolean> progressVisibility = new ObservableField<>(true);
 
     public ObservableField<Boolean> errorVisibility = new ObservableField<>(false);
+    public ObservableField<String> content = new ObservableField<>();
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -89,6 +90,9 @@ public class CompareFundViewModel extends ViewModel {
                 .subscribe(mutualFundResultBody -> {
                 }, throwable -> {
                     progressVisibility.set(false);
+                    errorVisibility.set(true);
+                    content.set(throwable.getLocalizedMessage());
+
                 }));
     }
 
