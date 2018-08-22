@@ -21,7 +21,7 @@ public class ApiServiceHelper implements ApiService {
     }
 
     @Override
-    public Single<MutualFundResultBody> getMutualFunds(String authKey, String key) {
+    public Observable<MutualFundResultBody> getMutualFunds(String authKey, String key) {
         return service.getMutualFunds(authKey, key);
     }
 

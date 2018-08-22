@@ -1,6 +1,7 @@
 package com.abhishek.fundhawk.ui.search;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -11,8 +12,12 @@ import android.widget.Toast;
 import com.abhishek.fundhawk.R;
 import com.abhishek.fundhawk.databinding.ActivitySearchBinding;
 import com.abhishek.fundhawk.di.ViewModelFactory;
+import com.abhishek.fundhawk.ui.compare.CompareFundActivity;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
 import dagger.android.AndroidInjection;
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -27,8 +32,6 @@ public class SearchActivity extends DaggerAppCompatActivity {
 
     @Inject
     SelectedListAdapter adapter;
-
-
 
 
     @Override
@@ -60,6 +63,12 @@ public class SearchActivity extends DaggerAppCompatActivity {
 
         viewModel.errorToast.observe(this, errorText -> {
             Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+        });
+
+        viewModel.transitActivity.observe(this, selectedResults -> {
+            Intent intent = new Intent(this, CompareFundActivity.class);
+            intent.putStringArrayListExtra("keys", selectedResults);
+            startActivity(intent);
         });
 
 

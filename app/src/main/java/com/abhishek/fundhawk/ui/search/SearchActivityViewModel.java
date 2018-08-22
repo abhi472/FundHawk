@@ -37,6 +37,8 @@ public class SearchActivityViewModel extends ViewModel {
     SingleLiveEvent<ArrayList<SearchResult>> updateAdapter = new SingleLiveEvent<>();
     SingleLiveEvent<String> clearText = new SingleLiveEvent<>();
     SingleLiveEvent<String> errorToast = new SingleLiveEvent<>();
+    SingleLiveEvent<ArrayList<String>> transitActivity = new SingleLiveEvent<>();
+
 
 
 
@@ -130,7 +132,12 @@ public class SearchActivityViewModel extends ViewModel {
             errorToast.setValue("Select atlease two funds to compare");
         } else if(selectedResults.size() >= 4) {
             errorToast.setValue("You can compare maximum of three funds at a time");
-
+        } else {
+            ArrayList<String> listKeys = new ArrayList<>();
+            for(SearchResult result: selectedResults) {
+                listKeys.add(result.getSchemeKey());
+            }
+            transitActivity.setValue(listKeys);
         }
 
     }

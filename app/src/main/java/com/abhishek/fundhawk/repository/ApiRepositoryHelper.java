@@ -20,7 +20,7 @@ public class ApiRepositoryHelper implements ApiRepository {
     }
 
     @Override
-    public Single<MutualFundResultBody> getMutualFunds(String authKey, String key) {
+    public Observable<MutualFundResultBody> getMutualFunds(String authKey, String key) {
         return apiServiceHelper.getMutualFunds(authKey, key);
     }
 

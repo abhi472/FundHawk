@@ -9,7 +9,7 @@ import io.reactivex.Single;
 
 public interface ApiRepository {
 
-    Single<MutualFundResultBody> getMutualFunds(String authKey, String key);
+    Observable<MutualFundResultBody> getMutualFunds(String authKey, String key);
 
     Observable<SearchResultBody> searchFunds(String authKey, SearchPostBody searchBody);
 

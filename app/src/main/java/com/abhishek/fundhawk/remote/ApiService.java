@@ -15,7 +15,7 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     @GET("v1/mf")
-    Single<MutualFundResultBody> getMutualFunds(@Header("Authorization") String authKey,
+    Observable<MutualFundResultBody> getMutualFunds(@Header("Authorization") String authKey,
                                                 @Query("key") String key);
 
     @POST("v2/mf/search/")
