@@ -12,6 +12,7 @@ import com.abhishek.fundhawk.R;
 import com.abhishek.fundhawk.databinding.CompareCardsBinding;
 import com.abhishek.fundhawk.databinding.SelectedFundCardBinding;
 import com.abhishek.fundhawk.model.ComparisonBody;
+import com.abhishek.fundhawk.model.SelectedFunds;
 import com.abhishek.fundhawk.ui.search.SelectedListAdapter;
 import com.abhishek.fundhawk.ui.search.SelectedListAdapterViewModel;
 
@@ -23,6 +24,7 @@ public class CompareListAdapter extends RecyclerView.Adapter<CompareListAdapter.
 
     private Context context;
     private ArrayList<ComparisonBody> items = new ArrayList<>();
+    private ArrayList<String> companies = new ArrayList<>();
 
     @Inject
     public CompareListAdapter(Context context) {
@@ -43,7 +45,7 @@ public class CompareListAdapter extends RecyclerView.Adapter<CompareListAdapter.
     public void onBindViewHolder(@NonNull CompareListAdapter.ViewHolder holder, int position) {
 
         CompareListAdapterViewModel viewModel = new CompareListAdapterViewModel();
-        viewModel.setFields(items.get(holder.getAdapterPosition()));
+        viewModel.setFields(items.get(holder.getAdapterPosition()), companies);
         holder.setViewModel(viewModel);
     }
 
@@ -54,6 +56,13 @@ public class CompareListAdapter extends RecyclerView.Adapter<CompareListAdapter.
 
     public void setItems(ArrayList<ComparisonBody> items) {
         this.items = items;
+    }
+
+    public void setCompanies(ArrayList<SelectedFunds> funds) {
+        for(SelectedFunds fund: funds) {
+            companies.add(fund.getName());
+        }
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -2,6 +2,8 @@ package com.abhishek.fundhawk.ui.search;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.util.Pair;
 
@@ -26,7 +28,7 @@ import io.reactivex.subjects.PublishSubject;
 public class SearchActivityViewModel extends ViewModel {
 
     private ApiRepository repository;
-    public ObservableField<String> infoText = new ObservableField<>();
+    public ObservableField<SpannableString> infoText = new ObservableField<>();
     public ObservableField<Boolean> isTyped = new ObservableField<>(false);
     public ObservableField<Boolean> isTyping = new ObservableField<>(false);
     public ObservableField<Boolean> listVisibility = new ObservableField<>(false);
@@ -37,18 +39,20 @@ public class SearchActivityViewModel extends ViewModel {
     SingleLiveEvent<List<String>> successCommand = new SingleLiveEvent<>();
     SingleLiveEvent<ArrayList<SearchResult>> updateAdapter = new SingleLiveEvent<>();
     SingleLiveEvent<String> clearText = new SingleLiveEvent<>();
+    public ObservableField<String> errorText = new ObservableField<>();
+
     SingleLiveEvent<String> errorToast = new SingleLiveEvent<>();
     SingleLiveEvent<ArrayList<SelectedFunds>> transitActivity = new SingleLiveEvent<>();
-
-
-
-
-
     private ArrayList<SearchResult> selectedResults = new ArrayList<>();
+    private int size = 0;
+    private SpannableString baseString;
 
 
     @Inject
     public SearchActivityViewModel(ApiRepositoryHelper repository) {
+        baseString = new SpannableString("List empty \n Please enter at least three characters in the search bar to begin search");
+        baseString.setSpan(new RelativeSizeSpan(2.0f), 0, 10, 1);
+        infoText.set(baseString);
         this.repository = repository;
         subject = PublishSubject.create();
         disposable = new CompositeDisposable();
@@ -80,12 +84,18 @@ public class SearchActivityViewModel extends ViewModel {
                         searchResultList = searchResultBody.getData().getSearchResults();
                         listVisibility.set(true);
                         successCommand.setValue(getNames(searchResultList));
+                    } else {
+                        SpannableString errorString = new SpannableString("No results \n No mutual funds found for the search query");
+                        errorString.setSpan(new RelativeSizeSpan(2.0f), 0, 10, 1);
+                        infoText.set(errorString);
+                        errorText.set("No results found");
+                        contentVisibility.set(true);
                     }
 
                 }, throwable -> {
                     isTyping.set(false);
                     isTyped.set(true);
-                    infoText.set(throwable.getLocalizedMessage());
+                    infoText.set(new SpannableString("Some error occurred"));
                     contentVisibility.set(true);
 
                 })
@@ -121,8 +131,17 @@ public class SearchActivityViewModel extends ViewModel {
     }
 
     public void onItemSelected(int k) {
+        if (contentVisibility.get()) {
+            contentVisibility.set(false);
+        }
         selectedResults.add(searchResultList.get(k));
         updateAdapter.setValue(selectedResults);
+        size++;
+        if (selectedResults.size() == 3) {
+            startComparisonActivity();
+
+        }
+
 
     }
 
@@ -131,20 +150,33 @@ public class SearchActivityViewModel extends ViewModel {
     }
 
     public void onCompareClick() {
-        if(selectedResults.size() <= 1) {
+        if (size <= 1) {
             errorToast.setValue("Select atlease two funds to compare");
-        } else if(selectedResults.size() >= 4) {
+        } else if (size >= 4) {
             errorToast.setValue("You can compare maximum of three funds at a time");
         } else {
-            ArrayList<SelectedFunds> listKeys = new ArrayList<>();
-            for(SearchResult result: selectedResults) {
-                SelectedFunds fund = new SelectedFunds(result.getName(),
-                        result.getSchemeKey());
-                listKeys.add(fund);
-            }
-            transitActivity.setValue(listKeys);
+            startComparisonActivity();
         }
 
     }
 
+    private void startComparisonActivity() {
+        ArrayList<SelectedFunds> listKeys = new ArrayList<>();
+        for (SearchResult result : selectedResults) {
+            SelectedFunds fund = new SelectedFunds(result.getName(),
+                    result.getSchemeKey());
+            listKeys.add(fund);
+        }
+        transitActivity.setValue(listKeys);
+    }
+
+    public void dataUpdated(int size) {
+        this.size = size;
+        if (size == 0) {
+            infoText.set(baseString);
+            contentVisibility.set(true);
+        }
+
+
+    }
 }

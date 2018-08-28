@@ -23,6 +23,7 @@
             android:drawableStart="@drawable/ic_search"
             android:hint="@string/search"
             android:inputType="text"
+            error="@{viewModel.errorText}"
             android:onTextChanged="@{viewModel.onTextChanged}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -74,7 +75,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             isVisible="@{viewModel.listVisibility}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/compare"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_bar"
@@ -83,17 +84,19 @@
 
         <TextView
             android:id="@+id/informative_asset"
+            isVisible="@{viewModel.contentVisibility}"
+            android:padding="32dp"
+            textSpan="@{viewModel.infoText}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/colorAccent"
-            android:textSize="16sp"
-            isVisible="@{viewModel.contentVisibility}"
-            android:text="@{viewModel.infoText}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_bar"
+            app:layout_constraintVertical_bias="0.333"
             tools:text="List Empty! \nStart comparing by entering your search query" />
 
         <TextView
@@ -107,7 +110,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_bar"
             app:layout_constraintVertical_bias="1.0"
-            android:background="@color/colorAccent"
+            android:background="@color/grey"
             android:textColor="@android:color/white"
             android:onClick="@{() -> viewModel.onCompareClick()}"
             />

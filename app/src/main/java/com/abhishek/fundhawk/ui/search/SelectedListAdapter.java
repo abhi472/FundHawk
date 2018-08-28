@@ -19,12 +19,14 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
 
     private Context context;
     private ArrayList<SearchResult> searchResultList = new ArrayList<>();
+    private UserAction userAction;
 
 
 
     @Inject
     public SelectedListAdapter(Context context) {
         this.context = context;
+        userAction = (UserAction) context;
     }
 
     public void setSearchResultList(ArrayList<SearchResult> searchResultList) {
@@ -53,6 +55,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
         holder.binding.clear.setOnClickListener(view -> {
             searchResultList.remove(holder.getAdapterPosition());
             notifyDataSetChanged();
+            userAction.onItemDeleted(searchResultList.size());
         });
 
     }
@@ -75,4 +78,11 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             binding.executePendingBindings();
         }
     }
+
+    public interface UserAction {
+
+        void onItemDeleted(int size);
+    }
+
+
 }

@@ -9,58 +9,10 @@
             type="com.abhishek.fundhawk.ui.compare.CompareFundViewModel" />
     </data>
 
-    <LinearLayout
-        android:id="@+id/root"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            app:isVisible="@{viewModel.listVisibility}">
-
-            <TextView
-                android:id="@+id/first"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:text="@{viewModel.first}"
-                android:textColor="@android:color/black"
-                tools:text="2234" />
-
-            <TextView
-                android:id="@+id/second"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:text="@{viewModel.second}"
-                android:textColor="@android:color/black"
-                tools:text="2234" />
-
-            <TextView
-                android:id="@+id/third"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:text="@{viewModel.third}"
-                android:textColor="@android:color/black"
-                app:isVisible="@{viewModel.thirdVisibility}"
-                tools:text="2234" />
-        </LinearLayout>
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/root"
             tools:context="com.founderscafe.android.sva.ui.visitor.visit.VisitFragment">
 
             <com.wang.avi.AVLoadingIndicatorView
@@ -96,5 +48,4 @@
 
         </FrameLayout>
 
-    </LinearLayout>
 </layout>

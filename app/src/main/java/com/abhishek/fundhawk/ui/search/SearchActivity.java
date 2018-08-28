@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class SearchActivity extends DaggerAppCompatActivity {
+public class SearchActivity extends DaggerAppCompatActivity implements SelectedListAdapter.UserAction{
 
     @Inject
     ViewModelFactory factory;
@@ -53,6 +54,9 @@ public class SearchActivity extends DaggerAppCompatActivity {
         viewModel.updateAdapter.observe(this, searchResults -> {
 
             adapter.setSearchResultList(searchResults);
+            if(searchResults.size() == 2) {
+                binding.compare.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+            }
             binding.searchList.setLayoutManager(new LinearLayoutManager(this));
             binding.searchList.setAdapter(adapter);
         });
@@ -66,10 +70,12 @@ public class SearchActivity extends DaggerAppCompatActivity {
         });
 
         viewModel.transitActivity.observe(this, selectedResults -> {
+            binding.compare.setBackgroundColor(ContextCompat.getColor(this, R.color.grey));
             Intent intent = new Intent(this, CompareFundActivity.class);
             intent.putParcelableArrayListExtra("keys", selectedResults);
             startActivity(intent);
         });
+
 
 
     }
@@ -91,5 +97,19 @@ public class SearchActivity extends DaggerAppCompatActivity {
             binding.searchBar.setText("");
 
         });
+    }
+
+
+
+    @Override
+    public void onItemDeleted(int size) {
+        viewModel.dataUpdated(size);
+        if(size < 2||size >= 4) {
+            binding.compare.setBackgroundColor(ContextCompat.getColor(this, R.color.grey));
+        } else {
+            binding.compare.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+
+        }
+
     }
 }

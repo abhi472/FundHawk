@@ -85,12 +85,7 @@ public class CompareFundViewModel extends ViewModel {
 
     public void init(ArrayList<SelectedFunds> keys) {
 
-        first.set(keys.get(0).getName());
-        second.set(keys.get(1).getName());
-        if (keys.size() == 3) {
-            third.set(keys.get(2).getName());
-            thirdVisibility.set(true);
-        }
+
 
         disposable.add(Observable
                 .fromIterable(keys)

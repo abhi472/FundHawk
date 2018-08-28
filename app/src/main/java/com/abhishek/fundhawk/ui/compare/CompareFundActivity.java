@@ -50,6 +50,7 @@ public class CompareFundActivity extends DaggerAppCompatActivity {
 
         viewModel.updateAdapter.observe(this, comparisonBodies -> {
             adapter.setItems(comparisonBodies);
+            adapter.setCompanies(keys);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
             binding.recyclerView.setAdapter(adapter);
         });

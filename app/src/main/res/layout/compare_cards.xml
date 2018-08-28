@@ -1,61 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
         <variable
             name="viewModel"
             type="com.abhishek.fundhawk.ui.compare.CompareListAdapterViewModel" />
     </data>
-<LinearLayout
-    android:id="@+id/root"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/title"
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="ALLOCATIONS"
-        android:textColor="@color/colorAccent"
-        android:textSize="18sp"
-        android:paddingStart="16dp"
-        android:text="@{viewModel.title}"
-        android:paddingEnd="16dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="16dp"
+        android:background="#eeeeee"
+        android:orientation="vertical"
+        android:paddingEnd="32dp"
+        android:paddingStart="32dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:paddingEnd="32dp"
+            android:paddingStart="32dp"
+            android:text="@{viewModel.title}"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="ALLOCATIONS" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/divider_two"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/divider" />
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/header_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.50" />
+
+        <TextView
+            android:id="@+id/companyOne"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:minLines="2"
+            textSpan="14sp"
+            android:text="@{viewModel.firstCompany}"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toStartOf="@id/header_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <TextView
+            android:id="@+id/companyTwo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:minLines="2"
+            textSpan="14sp"
+            android:text="@{viewModel.secondCompany}"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toStartOf="@id/header_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/companyOne" />
+
+        <TextView
+            android:id="@+id/companyThree"
+            isVisible="@{viewModel.thirdCompanyVisibility}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:minLines="2"
+            textSpan="14sp"
+            android:text="@{viewModel.thirdCompany}"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toStartOf="@id/header_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/companyTwo" />
 
         <TextView
             android:id="@+id/first"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="2234"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:minLines="2"
+            textSpan="14sp"
             android:text="@{viewModel.first}"
             android:textColor="@android:color/black"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/header_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
         <TextView
             android:id="@+id/second"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="2234"
+            android:gravity="center"
+            android:padding="8dp"
+            android:minLines="2"
+            textSpan="14sp"
             android:text="@{viewModel.second}"
             android:textColor="@android:color/black"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/header_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/first" />
+
         <TextView
             android:id="@+id/third"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="2234"
+            android:gravity="center"
+            android:padding="8dp"
+            android:minLines="2"
+            textSpan="14sp"
             android:text="@{viewModel.third}"
             isVisible="@{viewModel.thirdVisibility}"
             android:textColor="@android:color/black"
-            />
-    </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/header_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/second" />
 
-</LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 </layout>
