@@ -44,7 +44,7 @@ public class Details {
     private Integer minimumSwpWithdrawal;
     @SerializedName("minimum_redemption")
     @Expose
-    private Integer minimumRedemption;
+    private Float minimumRedemption;
     @SerializedName("exit_load")
     @Expose
     private Integer exitLoad;
@@ -199,11 +199,11 @@ public class Details {
         this.minimumSwpWithdrawal = minimumSwpWithdrawal;
     }
 
-    public Integer getMinimumRedemption() {
+    public Float getMinimumRedemption() {
         return minimumRedemption;
     }
 
-    public void setMinimumRedemption(Integer minimumRedemption) {
+    public void setMinimumRedemption(Float minimumRedemption) {
         this.minimumRedemption = minimumRedemption;
     }
 

@@ -7,6 +7,7 @@ import android.util.Pair;
 
 import com.abhishek.fundhawk.model.SearchPostBody;
 import com.abhishek.fundhawk.model.SearchResult.SearchResult;
+import com.abhishek.fundhawk.model.SelectedFunds;
 import com.abhishek.fundhawk.repository.ApiRepository;
 import com.abhishek.fundhawk.repository.ApiRepositoryHelper;
 import com.abhishek.fundhawk.utils.SingleLiveEvent;
@@ -37,7 +38,7 @@ public class SearchActivityViewModel extends ViewModel {
     SingleLiveEvent<ArrayList<SearchResult>> updateAdapter = new SingleLiveEvent<>();
     SingleLiveEvent<String> clearText = new SingleLiveEvent<>();
     SingleLiveEvent<String> errorToast = new SingleLiveEvent<>();
-    SingleLiveEvent<ArrayList<String>> transitActivity = new SingleLiveEvent<>();
+    SingleLiveEvent<ArrayList<SelectedFunds>> transitActivity = new SingleLiveEvent<>();
 
 
 
@@ -135,9 +136,11 @@ public class SearchActivityViewModel extends ViewModel {
         } else if(selectedResults.size() >= 4) {
             errorToast.setValue("You can compare maximum of three funds at a time");
         } else {
-            ArrayList<String> listKeys = new ArrayList<>();
+            ArrayList<SelectedFunds> listKeys = new ArrayList<>();
             for(SearchResult result: selectedResults) {
-                listKeys.add(result.getSchemeKey());
+                SelectedFunds fund = new SelectedFunds(result.getName(),
+                        result.getSchemeKey());
+                listKeys.add(fund);
             }
             transitActivity.setValue(listKeys);
         }

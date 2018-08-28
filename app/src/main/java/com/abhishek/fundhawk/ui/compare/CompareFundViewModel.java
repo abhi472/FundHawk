@@ -8,6 +8,7 @@ import android.util.SparseArray;
 import com.abhishek.fundhawk.model.ComparisonBody;
 import com.abhishek.fundhawk.model.MutualFundResult.MutualFund;
 import com.abhishek.fundhawk.model.SearchResult.SearchResult;
+import com.abhishek.fundhawk.model.SelectedFunds;
 import com.abhishek.fundhawk.repository.ApiRepository;
 import com.abhishek.fundhawk.repository.ApiRepositoryHelper;
 import com.abhishek.fundhawk.utils.SingleLiveEvent;
@@ -38,6 +39,12 @@ public class CompareFundViewModel extends ViewModel {
     private CompositeDisposable disposable = new CompositeDisposable();
 
     private ArrayList<ComparisonBody> comparisonBodies = new ArrayList<>();
+
+    public ObservableField<String> title = new ObservableField<>("");
+    public ObservableField<String> first = new ObservableField<>("");
+    public ObservableField<String> second = new ObservableField<>("");
+    public ObservableField<String> third = new ObservableField<>("");
+    public ObservableField<Boolean> thirdVisibility = new ObservableField<>(false);
 
     private String[] titles = {"NAV",
             "RISKOMETER",
@@ -76,12 +83,18 @@ public class CompareFundViewModel extends ViewModel {
         }
     }
 
-    public void init(ArrayList<String> keys) {
+    public void init(ArrayList<SelectedFunds> keys) {
 
+        first.set(keys.get(0).getName());
+        second.set(keys.get(1).getName());
+        if (keys.size() == 3) {
+            third.set(keys.get(2).getName());
+            thirdVisibility.set(true);
+        }
 
         disposable.add(Observable
                 .fromIterable(keys)
-                .concatMap(s -> repository.getMutualFunds("Token a41d2b39e3b47412504509bb5a1b66498fb1f43a", s))
+                .concatMap(s -> repository.getMutualFunds("Token a41d2b39e3b47412504509bb5a1b66498fb1f43a", s.getId()))
                 .doOnNext(mutualFundResultBody ->
                         mutualFunds.add(mutualFundResultBody.getData().getMutualFund()))
                 .subscribeOn(Schedulers.io())
@@ -99,19 +112,19 @@ public class CompareFundViewModel extends ViewModel {
     private void getComparableObjects() {
 
         for (MutualFund fund : mutualFunds) {
-            comparisonBodies.get(0).getValues().add("₹"+String.valueOf(fund.getNav()));
+            comparisonBodies.get(0).getValues().add("₹" + String.valueOf(fund.getNav()));
             comparisonBodies.get(1).getValues().add(String.valueOf(fund.
                     getDetails()
                     .getRiskometer()));
             comparisonBodies.get(2).getValues().add(String.valueOf(fund
                     .getDetails()
-                    .getYoyReturn())+"%");
+                    .getYoyReturn()) + "%");
             comparisonBodies.get(3).getValues().add(String.valueOf(fund
                     .getDetails()
-                    .getReturn3yr())+"%");
+                    .getReturn3yr()) + "%");
             comparisonBodies.get(4).getValues().add(String.valueOf(fund
                     .getDetails()
-                    .getReturn5yr())+"%");
+                    .getReturn5yr()) + "%");
             comparisonBodies.get(5).getValues().add(String.valueOf(fund
                     .getDetails()
                     .getSchemeType()));

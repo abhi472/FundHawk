@@ -13,6 +13,7 @@ import com.abhishek.fundhawk.R;
 import com.abhishek.fundhawk.databinding.ActivityCompareFundBinding;
 import com.abhishek.fundhawk.di.ViewModelFactory;
 import com.abhishek.fundhawk.model.ComparisonBody;
+import com.abhishek.fundhawk.model.SelectedFunds;
 import com.abhishek.fundhawk.ui.search.SearchActivityViewModel;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class CompareFundActivity extends DaggerAppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_compare_fund);
         binding.setViewModel(viewModel);
 
-        ArrayList<String> keys = getIntent().getStringArrayListExtra("keys");
+        ArrayList<SelectedFunds> keys = getIntent().getParcelableArrayListExtra("keys");
 
         viewModel.init(keys);
 

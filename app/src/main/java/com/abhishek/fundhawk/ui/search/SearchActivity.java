@@ -67,7 +67,7 @@ public class SearchActivity extends DaggerAppCompatActivity {
 
         viewModel.transitActivity.observe(this, selectedResults -> {
             Intent intent = new Intent(this, CompareFundActivity.class);
-            intent.putStringArrayListExtra("keys", selectedResults);
+            intent.putParcelableArrayListExtra("keys", selectedResults);
             startActivity(intent);
         });
 
