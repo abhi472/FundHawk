@@ -89,6 +89,8 @@ public class SearchActivityViewModel extends ViewModel {
                         errorString.setSpan(new RelativeSizeSpan(2.0f), 0, 10, 1);
                         infoText.set(errorString);
                         errorText.set("No results found");
+                        isTyped.set(false);
+                        if(!listVisibility.get())
                         contentVisibility.set(true);
                     }
 
@@ -118,6 +120,7 @@ public class SearchActivityViewModel extends ViewModel {
 
         isTyping.set(true);
         isTyped.set(false);
+        errorText.set(null);
 
 
         subject.onNext(s.toString());
@@ -134,11 +137,16 @@ public class SearchActivityViewModel extends ViewModel {
         if (contentVisibility.get()) {
             contentVisibility.set(false);
         }
-        selectedResults.add(searchResultList.get(k));
-        updateAdapter.setValue(selectedResults);
         size++;
-        if (selectedResults.size() == 3) {
-            startComparisonActivity();
+        if(size <= 3) {
+            selectedResults.add(searchResultList.get(k));
+            updateAdapter.setValue(selectedResults);
+            if(size == 3)
+                startComparisonActivity();
+        }
+
+        else {
+            errorToast.setValue("You can compare maximum of three funds at a time");
 
         }
 

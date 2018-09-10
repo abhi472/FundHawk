@@ -57,6 +57,9 @@ public class SearchActivity extends DaggerAppCompatActivity implements SelectedL
             if(searchResults.size() == 2) {
                 binding.compare.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
             }
+            if(searchResults.size() >= 4) {
+                binding.compare.setBackgroundColor(ContextCompat.getColor(this, R.color.grey));
+            }
             binding.searchList.setLayoutManager(new LinearLayoutManager(this));
             binding.searchList.setAdapter(adapter);
         });
@@ -70,7 +73,6 @@ public class SearchActivity extends DaggerAppCompatActivity implements SelectedL
         });
 
         viewModel.transitActivity.observe(this, selectedResults -> {
-            binding.compare.setBackgroundColor(ContextCompat.getColor(this, R.color.grey));
             Intent intent = new Intent(this, CompareFundActivity.class);
             intent.putParcelableArrayListExtra("keys", selectedResults);
             startActivity(intent);
